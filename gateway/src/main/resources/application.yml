@@ -6,18 +6,12 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: lb://SWCAMP-USER-SERVICE
+        - id: user-management-service
+          uri: lb://USER-MANAGEMENT-SERVICE
           predicates:
-            - Path=/api/v1/user-service/**
+            - Path=/api/v1/user-management/**
           filters:
-            - RewritePath=/api/v1/user-service/(?<segment>.*), /$\{segment}
-        - id: order-service
-          uri: lb://SWCAMP-ORDER-SERVICE
-          predicates:
-            - Path=/api/v1/order-service/**
-          filters:
-            - RewritePath=/api/v1/order-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/api/v1/user-management/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
