@@ -1,4 +1,4 @@
-package com.gp.nut.scheduleservice.dto;
+package com.gp.nut.schedule.dto;
 
 import java.time.LocalDate;
 import java.util.List;

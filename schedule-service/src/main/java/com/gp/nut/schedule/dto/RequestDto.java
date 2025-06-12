@@ -1,4 +1,4 @@
-package com.gp.nut.scheduleservice.dto;
+package com.gp.nut.schedule.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +28,7 @@ public class RequestDto {
   @NotEmpty(message = "참여자 ID 목록은 비어있을 수 없습니다.") // null과 빈 리스트를 실패 처리
   private List<Long> participantIds;
 
+  @NotEmpty(message = "회식 장소 후보 ID 목록은 비어있을 수 없습니다.") // null과 빈 리스트를 실패 처리
   private List<Long> candidateLocationIds;
 
   private Long confirmedLocationId; // 확정 장소는 없어도 회식 생성 가능

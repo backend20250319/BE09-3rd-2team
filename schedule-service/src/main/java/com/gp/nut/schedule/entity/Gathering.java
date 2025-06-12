@@ -1,4 +1,4 @@
-package com.gp.nut.scheduleservice.entity;
+package com.gp.nut.schedule.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -43,6 +43,7 @@ public class Gathering {
   @ElementCollection // 기본값이나 임베디드 타입의 컬렉션을 별도 테이블에 매핑
   private List<Long> participantIds; // 참여 사원들
 
+  @NotEmpty // 컬렉션이 빈값이 아닌지 체크
   @ElementCollection
   private  List<Long> candidateLocationIds; // 회식 장소 후보 목록들
 
