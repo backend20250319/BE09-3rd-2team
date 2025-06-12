@@ -1,10 +1,10 @@
-package com.gp.gateway;
+package com.gp.testproejxt;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Chap03GatewayLectureSourceApplicationTests {
+class TestProejxtApplicationTests {
 
     @Test
     void contextLoads() {

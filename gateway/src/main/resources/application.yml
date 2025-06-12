@@ -6,8 +6,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-management-service
-          uri: lb://USER-MANAGEMENT-SERVICE
+        - id: user-management
+          uri: lb://USER-MANAGEMENT
           predicates:
             - Path=/api/v1/user-management/**
           filters:
