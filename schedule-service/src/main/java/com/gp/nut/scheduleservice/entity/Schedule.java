@@ -1,4 +1,4 @@
-package com.gp.nut.scheduleservice.dto;
+package com.gp.nut.scheduleservice.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
