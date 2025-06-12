@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class Schedule {
+public class Gathering {
 
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
