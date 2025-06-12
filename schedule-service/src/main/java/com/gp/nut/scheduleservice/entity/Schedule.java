@@ -6,11 +6,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@Table(name = "schedule") // 테이블명
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Builder
+@ToString
 public class Schedule {
 
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +44,6 @@ public class Schedule {
   @ElementCollection // 기본값이나 임베디드 타입의 컬렉션을 별도 테이블에 매핑
   private List<Long> participantIds; // 참여 사원들
 
-  @NotEmpty
   @ElementCollection
   private  List<Long> candidateLocationIds; // 회식 장소 후보 목록들
 
