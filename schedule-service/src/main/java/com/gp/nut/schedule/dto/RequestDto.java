@@ -32,5 +32,7 @@ public class RequestDto {
   private List<Long> candidateLocationIds;
 
   private Long confirmedLocationId; // 확정 장소는 없어도 회식 생성 가능
+  private List<Long> reviewIds;
+
 
 }

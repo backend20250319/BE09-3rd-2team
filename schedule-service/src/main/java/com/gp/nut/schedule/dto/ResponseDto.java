@@ -15,4 +15,5 @@ public class ResponseDto {
   private Long confirmedLocationId;
   private List<Long> participantIds;
   private List<Long> candidateLocationIds;
+  private List<Long> reviewIds;
 }

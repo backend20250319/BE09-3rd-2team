@@ -47,4 +47,7 @@ public class Gathering {
   @ElementCollection
   private  List<Long> candidateLocationIds; // 회식 장소 후보 목록들
 
+  @ElementCollection
+  private List<Long> reviewIds;
+
 }
