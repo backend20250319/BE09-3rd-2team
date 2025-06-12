@@ -23,7 +23,7 @@ public class RequestDto {
   private Long bossId;
 
   @NotNull(message = "회식 날짜는 필수입니다.")
-  private LocalDate dinnerDate;
+  private LocalDate Date;
 
   @NotEmpty(message = "참여자 ID 목록은 비어있을 수 없습니다.") // null과 빈 리스트를 실패 처리
   private List<Long> participantIds;

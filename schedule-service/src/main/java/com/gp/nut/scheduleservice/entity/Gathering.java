@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "schedule") // 테이블명
+@Table(name = "gathering") // 테이블명
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class Gathering {
   private Long bossId; // 회식 만든 사장의 id
 
   @Column(nullable = false)
-  private LocalDate dinnerDate; // 회식 날짜
+  private LocalDate Date; // 회식 날짜
 
   private Long confirmedLocationId; // 확정 회식 장소
 
