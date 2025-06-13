@@ -45,10 +45,10 @@ public class UserCommandService {
     public void updateUser(Long userId, UserCreateRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
-//        // ID 중복 체크 확인
-//        if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
-//            throw new UserException(Errorcode.DUPLICATE_USERNAME);
-//        }
+        // ID 중복 체크 확인
+        if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
+            throw new UserException(Errorcode.DUPLICATE_USERNAME);
+        }
         user.updateUser(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getName(), request.getRole());
         userRepository.save(user);
     }
