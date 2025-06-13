@@ -17,7 +17,7 @@ spring:
           predicates:
             - Path=/goodplace/location/**
           filters:
-            RewritePath=/goodplace/location/(?<segment>.*), /$\{segment}
+            #- RewritePath=/goodplace/location/(?<segment>.*), /$\{segment}
         - id: schedule-service
           uri: lb://SCHEDULE-SERVICE
           predicates:
