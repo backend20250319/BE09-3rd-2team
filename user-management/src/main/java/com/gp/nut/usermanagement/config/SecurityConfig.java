@@ -4,6 +4,7 @@ import com.gp.nut.usermanagement.jwt.HeaderAuthenticationFilter;
 import com.gp.nut.usermanagement.jwt.RestAccessDeniedHandler;
 import com.gp.nut.usermanagement.jwt.RestAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.protocol.HTTP;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -42,12 +43,18 @@ public class SecurityConfig {
                                 .accessDeniedHandler(restAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()                                )
+                        auth.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/user/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/user/update/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/user/delete/**").permitAll()
+                                .anyRequest().authenticated()
+                )
                 // 기존 JWT 검증 필터 대신, Gateway가 전달한 헤더를 이용하는 필터 추가
                 .addFilterBefore(headerAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
 
     @Bean
     public HeaderAuthenticationFilter headerAuthenticationFilter() {
