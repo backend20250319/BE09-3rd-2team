@@ -49,7 +49,7 @@ public class UserCommandService {
         if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
             throw new UserException(Errorcode.DUPLICATE_USERNAME);
         }
-        user.updateUser(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getName(), request.getRole());
+        user.updateUser(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getName());
         userRepository.save(user);
     }
     @Transactional

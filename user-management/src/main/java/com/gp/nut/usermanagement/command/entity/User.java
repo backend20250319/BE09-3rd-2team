@@ -25,13 +25,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role;
+    private UserRole role = UserRole.EMPLOYEE;
 
     public void setEncodedPassword(String encode) {
         this.password = encode;
     }
 
-    public void updateUser(String username, String encodedPassword, String name, UserRole role) {
+    public void updateUser(String username, String encodedPassword, String name) {
         this.username = username;
         this.password = encodedPassword;
         this.name = name;
