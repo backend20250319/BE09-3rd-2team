@@ -22,9 +22,6 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String birthDate;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;

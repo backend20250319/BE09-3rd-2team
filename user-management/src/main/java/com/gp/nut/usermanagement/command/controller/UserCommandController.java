@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/goodplace")
 public class UserCommandController {
 
     private final UserCommandService userCommandService;
