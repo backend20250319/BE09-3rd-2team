@@ -6,12 +6,8 @@ import com.gp.nut.auth.dto.TokenResponse;
 import com.gp.nut.auth.repository.UserRepository;
 import com.gp.nut.jwt.JwtTokenProvider;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
