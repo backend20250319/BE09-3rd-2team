@@ -1,4 +1,4 @@
-package com.gp.nut.config;
+package com.gp.nut.usermanagement.config;
 
 import com.gp.nut.usermanagement.jwt.HeaderAuthenticationFilter;
 import com.gp.nut.usermanagement.jwt.RestAccessDeniedHandler;
@@ -43,10 +43,7 @@ public class SecurityConfig {
                                 .accessDeniedHandler(restAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(HttpMethod.POST, "/users", "/auth/login", "/auth/refresh").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/users/me").hasAuthority("USER")
-                                .anyRequest().authenticated()
-                )
+                        auth.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()                                )
                 // 기존 JWT 검증 필터 대신, Gateway가 전달한 헤더를 이용하는 필터 추가
                 .addFilterBefore(headerAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

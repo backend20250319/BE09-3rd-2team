@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
+
 import javax.crypto.SecretKey;
 import java.util.Date;
 
@@ -20,7 +21,6 @@ public class JwtTokenProvider {
       secret: LH9QZL8upsPBfuDY+Dkb1kT9DZIIUSuA2u4O6Lfi3mkEfeWtETpVTcR/8SMZdJWn/xNTuCQBE6rBvDXgnVmscQ==
       expiration: 1800000
       refresh-expiration: 604800000
-      *
     위 코드를 @Value가 값을 자동으로 주입
     * */
     @Value("${jwt.secret}")
@@ -89,7 +89,6 @@ public class JwtTokenProvider {
         } catch (IllegalArgumentException e) {
             throw new BadCredentialsException("JWT Token claims empty", e);
         }
-
     }
 
     public String getUsernameFromJWT(String token) {

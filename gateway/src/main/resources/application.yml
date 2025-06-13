@@ -9,9 +9,9 @@ spring:
         - id: user-management
           uri: lb://USER-MANAGEMENT
           predicates:
-            - Path=/api/v1/user-management/**
+            - Path=/goodplace/user-management/**
           filters:
-            - RewritePath=/api/v1/user-management/(?<segment>.*), /$\{segment}
+            - RewritePath=/goodplace/user-management/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
