@@ -28,7 +28,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
         // 만약 토큰이 없거나, "Bearer "로 시작하지 않으면 다음 체인으로 요청을 전달한다.
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return chain.filter(exchange);
+            ServerHttpRequest mutateRequest = exchange.getRequest().mutate()
+                    .header("X-User-Id", "0")
+                    .header("X-User-Role", "GUEST")
+                    .build();
+            ServerWebExchange mutatedExchange = exchange.mutate().request(mutateRequest).build();
+            return chain.filter(mutatedExchange);
         }
 
         // "Bearer " 접두어를 제거하고 순수 JWT 토큰만 추출한다.
