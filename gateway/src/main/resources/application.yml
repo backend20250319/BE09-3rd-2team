@@ -24,6 +24,12 @@ spring:
             - Path=/goodplace/schedule-service/**
           filters:
             - RewritePath=/goodplace/schedule-service/(?<segment>.*), /$\{segment}
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates:
+            - Path=/goodplace/review-service/**
+          filters:
+            - RewritePath=/goodplace/review-service/(?<segment>.*), /$\{segment}
 eureka:
   client:
     register-with-eureka: true
