@@ -23,11 +23,14 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private UserRole role;
+
     public void setEncodedPassword(String encode) {
         this.password = encode;
     }
 
-    public void updateUser(String username, String encodedPassword, String name) {
+    public void updateUser(String username, String encodedPassword, String name, UserRole role) {
         this.username = username;
         this.password = encodedPassword;
         this.name = name;
