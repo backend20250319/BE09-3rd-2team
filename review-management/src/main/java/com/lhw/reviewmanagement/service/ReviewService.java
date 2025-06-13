@@ -34,4 +34,11 @@ public class ReviewService {
 
         return new ReviewResponseDTO(reviewRepository.save(review));
     }
+    @Transactional
+    public ReviewResponseDTO deleteReview(Long id) {
+        Review review = reviewRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("전에 등록하신 리뷰가 없습니다."));
+       reviewRepository.delete(review);
+       return new ReviewResponseDTO(review);
+    }
 }
