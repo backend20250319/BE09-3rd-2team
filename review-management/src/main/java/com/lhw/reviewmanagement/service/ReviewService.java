@@ -19,7 +19,7 @@ public class ReviewService {
 
     public ReviewResponseDTO saveReview(ReviewDTO reviewDTO) {
         Review review = Review.builder()
-                .name(reviewDTO.getName())
+                .name(reviewDTO.getUsername())
                 .comment(reviewDTO.getComment())
                 .build();
         Review saved = reviewRepository.save(review);

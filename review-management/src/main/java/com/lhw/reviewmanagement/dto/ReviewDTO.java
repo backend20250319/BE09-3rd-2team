@@ -7,10 +7,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ReviewDTO {
-
-    private Long Id ;     // user 테이블에서 가져온 교유 PK  - 사용자 정보
-    private String name ;
-    private String comment;
+    private Long reviewId;
+    private Long  scheduleId;   // schedule 테이블 고유 Id
+    private Long userId ;     // user 테이블 고유 Id
+    private String username ;    // 리뷰 작성자 Id
+    private String comment;     // 리뷰 내용
 
 
 }

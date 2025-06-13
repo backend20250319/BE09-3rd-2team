@@ -17,9 +17,13 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id ;
+    private Long reviewId;
 
-    private Long targetId ;
+    @JoinColumn(name="scheduleId")
+    private Long scheduleId ;
+
+    @JoinColumn(name="userId")
+    private Long userId ;
 
     @Column(nullable = false)
     private String name ;
@@ -28,11 +32,6 @@ public class Review {
 
 
 
-
-    public void createReview(String name, String comment) {
-       this.name=name;
-       this.comment=comment;
-    }
 
     public void setComment(String comment) {
         this.comment=comment;
