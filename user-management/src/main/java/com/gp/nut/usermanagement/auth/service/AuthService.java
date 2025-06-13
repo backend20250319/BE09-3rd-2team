@@ -1,12 +1,11 @@
 package com.gp.nut.usermanagement.auth.service;
 
 import com.gp.nut.usermanagement.auth.dto.LoginRequest;
-import com.gp.nut.usermanagement.auth.dto.RefreshTokenRequest;
 import com.gp.nut.usermanagement.auth.dto.TokenResponse;
 import com.gp.nut.usermanagement.auth.entity.RefreshToken;
 import com.gp.nut.usermanagement.auth.repository.RefreshTokenRepository;
 import com.gp.nut.usermanagement.command.entity.User;
-import com.gp.nut.usermanagement.command.service.repository.UserRepository;
+import com.gp.nut.usermanagement.command.repository.UserRepository;
 import com.gp.nut.usermanagement.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -91,13 +91,4 @@ public class JwtTokenProvider {
         }
     }
 
-    public String getUsernameFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-        return claims.getSubject();
-    }
-
 }
