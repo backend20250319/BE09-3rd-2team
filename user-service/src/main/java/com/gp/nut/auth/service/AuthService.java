@@ -24,12 +24,12 @@ public class AuthService {
 
     public TokenResponse login(LoginRequest request) {
 
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new BadCredentialsException("올바르지 않은 아이디 혹은 비밀번호"));
-
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("올바르지 않은 아이디 혹은 비밀번호");
-        }
+//        User user = userRepository.findByUsername(request.getUsername())
+//                .orElseThrow(() -> new BadCredentialsException("올바르지 않은 아이디 혹은 비밀번호"));
+//
+//        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+//            throw new BadCredentialsException("올바르지 않은 아이디 혹은 비밀번호");
+//        }
 
         String accessToken = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name(), user.getId());
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getUsername(), user.getRole().name(), user.getId());
