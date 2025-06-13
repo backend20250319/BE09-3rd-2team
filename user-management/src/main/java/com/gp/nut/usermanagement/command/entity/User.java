@@ -1,5 +1,6 @@
 package com.gp.nut.usermanagement.command.entity;
 
+import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,12 @@ public class User {
 
     public void setEncodedPassword(String encode) {
         this.password = encode;
+    }
+
+    public void updateUser(String username, String encodedPassword, String name, UserRole role) {
+        this.username = username;
+        this.password = encodedPassword;
+        this.name = name;
+        this.role = role;
     }
 }
