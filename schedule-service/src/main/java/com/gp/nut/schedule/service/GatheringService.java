@@ -29,7 +29,15 @@ public class GatheringService {
   }
 
   // Gathering 날짜 변경
+  @Transactional
+  public GatheringResponseDto updateGatheringDate(UpdateDateRequestDto requestDto) {
+    Gathering retrieveGathering = gatheringRepository.findById(requestDto.getId()).orElseThrow(
+        () -> new IllegalArgumentException("해당 Gathering을 찾을 수 없습니다. ID: " + requestDto.getId()));
+    retrieveGathering.updateDate(requestDto.getDate()); // 찾은 회식의 날짜 변경
 
+    Gathering updatedGathering = gatheringRepository.save(retrieveGathering); // db 반영
+    return updatedGathering.toResponseDto();
+  }
 
   // Gathering에 확정된 회식정보 저장
 

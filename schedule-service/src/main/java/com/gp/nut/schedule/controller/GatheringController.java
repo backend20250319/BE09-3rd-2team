@@ -32,6 +32,10 @@ public class GatheringController {
   }
 
   // Gathering 날짜 변경
+  @PostMapping("/gathering/date")
+  public GatheringResponseDto gatheringDate(@RequestBody UpdateDateRequestDto requestDto) {
+    return gatheringService.updateGatheringDate(requestDto);
+  }
 
   // Gathering에 확정된 회식정보 저장
 
