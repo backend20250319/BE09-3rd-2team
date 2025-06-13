@@ -2,16 +2,9 @@ package com.gp.nut.usermanagement.command.service;
 
 import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
 import com.gp.nut.usermanagement.command.entity.User;
-import com.gp.nut.usermanagement.command.repository.UserRepository;
-import com.gp.nut.usermanagement.common.ApiResponse;
-import com.gp.nut.usermanagement.common.Errorcode;
-import com.gp.nut.usermanagement.common.UserException;
+import com.gp.nut.usermanagement.command.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,34 +21,10 @@ public class UserCommandService {
     public void registerUser(UserCreateRequest request) {
         // ID 중복 체크 확인
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new UserException(Errorcode.DUPLICATE_USERNAME);
+            throw new IllegalArgumentException("Username already exists");
         }
-        User user = modelMapper.map(request, User.class);
-        user.setEncodedPassword(passwordEncoder.encode(request.getPassword()));
-        userRepository.save(user);
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
-    }
-
-    @Transactional
-    public void updateUser(Long userId, UserCreateRequest request) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
-        // ID 중복 체크 확인
-        if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
-            throw new UserException(Errorcode.DUPLICATE_USERNAME);
-        }
-        user.updateUser(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getName(), request.getRole());
-        userRepository.save(user);
-    }
-    @Transactional
-    public void deleteUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
-        userRepository.delete(user);
+       User user = modelMapper.map(request, User.class);
+       user.setEncodedPassword(passwordEncoder.encode(request.getPassword()));
+       userRepository.save(user);
     }
 }
