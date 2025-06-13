@@ -2,11 +2,9 @@ package com.gp.nut.usermanagement.command.service;
 
 import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
 import com.gp.nut.usermanagement.command.entity.User;
-import com.gp.nut.usermanagement.command.repository.UserRepository;
+import com.gp.nut.usermanagement.command.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
