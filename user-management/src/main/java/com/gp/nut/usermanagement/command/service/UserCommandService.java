@@ -1,6 +1,7 @@
 package com.gp.nut.usermanagement.command.service;
 
 import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
+import com.gp.nut.usermanagement.command.dto.UserRoleUpdateRequest;
 import com.gp.nut.usermanagement.command.entity.User;
 import com.gp.nut.usermanagement.command.repository.UserRepository;
 import com.gp.nut.usermanagement.common.ApiResponse;
@@ -49,7 +50,7 @@ public class UserCommandService {
         if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
             throw new UserException(Errorcode.DUPLICATE_USERNAME);
         }
-        user.updateUser(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getName());
+        user.updateUser(passwordEncoder.encode(request.getPassword()), request.getName());
         userRepository.save(user);
     }
     @Transactional
@@ -57,5 +58,12 @@ public class UserCommandService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
         userRepository.delete(user);
+    }
+
+    @Transactional
+    public void updateUserRole(Long userId, UserRoleUpdateRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
+        user.updateRole(request.getRole());
     }
 }

@@ -42,12 +42,12 @@ public class SecurityConfig {
                                 .accessDeniedHandler(restAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
-                            .anyRequest().authenticated()
+                        auth.requestMatchers(HttpMethod.POST, "user/register", "auth/login").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/user/*/role").hasAuthority("ADMIN")
+                                .anyRequest().authenticated()
                 )
                 // 기존 JWT 검증 필터 대신, Gateway가 전달한 헤더를 이용하는 필터 추가
                 .addFilterBefore(headerAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
 
         return http.build();
     }
