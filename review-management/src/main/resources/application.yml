@@ -9,3 +9,4 @@ spring:
     url: jdbc:mysql://mysql.coffit.xyz:3322/gpdb
     username: goodplace
     password: goodplace
+
