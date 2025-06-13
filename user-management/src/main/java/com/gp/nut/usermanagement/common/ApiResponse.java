@@ -1,4 +1,4 @@
-package com.gp.nut.common;
+package com.gp.nut.usermanagement.common;
 
 import lombok.Builder;
 import lombok.Getter;

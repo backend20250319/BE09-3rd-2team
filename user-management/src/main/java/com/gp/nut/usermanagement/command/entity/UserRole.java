@@ -1,4 +1,4 @@
-package com.gp.nut.command.entity;
+package com.gp.nut.usermanagement.command.entity;
 
 public enum UserRole {
     EMPLOYEE, MANAGER, ADMIN;
