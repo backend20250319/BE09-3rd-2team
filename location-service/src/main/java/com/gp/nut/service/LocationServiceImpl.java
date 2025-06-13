@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
 
-    public LocationServiceImpl(LocationRepository locationRepository) {
-        this.locationRepository = locationRepository;
-    }
+//    public LocationServiceImpl(LocationRepository locationRepository) {
+//        this.locationRepository = locationRepository;
+//    }
 
     @Override
     public LocationResponseDTO createLocation(LocationCreateRequestDTO request) {
