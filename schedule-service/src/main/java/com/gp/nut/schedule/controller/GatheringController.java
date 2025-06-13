@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,7 @@ public class GatheringController {
   }
 
   // Gathering 날짜 변경
-  @PostMapping("/gathering/date")
+  @PutMapping("/gathering/date")
   public GatheringResponseDto gatheringDate(@RequestBody UpdateDateRequestDto requestDto) {
     return gatheringService.updateGatheringDate(requestDto);
   }
