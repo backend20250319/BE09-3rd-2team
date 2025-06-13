@@ -23,7 +23,6 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
 
@@ -35,6 +34,5 @@ public class User {
         this.username = username;
         this.password = encodedPassword;
         this.name = name;
-        this.role = role;
     }
 }
