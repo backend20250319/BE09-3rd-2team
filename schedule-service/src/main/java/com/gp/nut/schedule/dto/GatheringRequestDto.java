@@ -1,23 +1,25 @@
 package com.gp.nut.schedule.dto;
 
+import com.gp.nut.schedule.entity.Gathering;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 @ToString
-public class RequestDto {
+@Builder // 스태틱임. 모든 필드를 받는 생성자를 호출하여 객체를 만드므로 @AllArgsConstructor가 필수이다.
+public class GatheringRequestDto {
+  private Long id;
 
   @NotNull(message = "회식을 주최하는 사장 ID는  필수입니다.")
   private Long bossId;
@@ -34,5 +36,15 @@ public class RequestDto {
   private Long confirmedLocationId; // 확정 장소는 없어도 회식 생성 가능
   private List<Long> reviewIds;
 
+  public Gathering toGathering() {
+    return Gathering.builder()
+        .bossId(bossId)
+        .date(Date)
+        .confirmedLocationId(confirmedLocationId)
+        .participantIds(participantIds)
+        .candidateLocationIds(candidateLocationIds)
+        .reviewIds(reviewIds)
+        .build();
+  }
 
 }

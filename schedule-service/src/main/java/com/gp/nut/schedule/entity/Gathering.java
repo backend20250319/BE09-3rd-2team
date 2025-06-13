@@ -1,5 +1,7 @@
 package com.gp.nut.schedule.entity;
 
+import com.gp.nut.schedule.dto.GatheringRequestDto;
+import com.gp.nut.schedule.dto.GatheringResponseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -14,20 +16,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "gathering") // 테이블명
+@Table(name = "tbl_gathering") // 테이블명
 @NoArgsConstructor
-@AllArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor // @RequiredArgsConstructor는
 @Getter
 @Builder
 @ToString
 public class Gathering {
 
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // pk는 identity옵션이다.
   @Id
   private Long id; // pk
 
@@ -35,7 +35,7 @@ public class Gathering {
   private Long bossId; // 회식 만든 사장의 id
 
   @Column(nullable = false)
-  private LocalDate Date; // 회식 날짜
+  private LocalDate date; // 회식 날짜
 
   private Long confirmedLocationId; // 확정 회식 장소
 
@@ -49,5 +49,40 @@ public class Gathering {
 
   @ElementCollection
   private List<Long> reviewIds;
+
+  // 날짜 변경 메서드
+  public void updateDate(LocalDate date) {
+    this.date = date;
+  }
+
+  // 최종 회식 장소 변경 메서드
+  public void updateConfirmedLocationId(Long confirmedLocationId) {
+    this.confirmedLocationId = confirmedLocationId;
+  }
+
+  // Gathering을 Request로 변환
+  public GatheringRequestDto toRequestDto() {
+    return GatheringRequestDto.builder()
+        .bossId(bossId)
+        .Date(date)
+        .confirmedLocationId(confirmedLocationId)
+        .participantIds(participantIds)
+        .candidateLocationIds(candidateLocationIds)
+        .reviewIds(reviewIds)
+        .build();
+  }
+
+  // Gathering을 Response로 변환
+  public GatheringResponseDto toResponseDto() {
+    return GatheringResponseDto.builder()
+        .id(id)
+        .bossId(bossId)
+        .Date(date)
+        .confirmedLocationId(confirmedLocationId)
+        .participantIds(participantIds)
+        .candidateLocationIds(candidateLocationIds)
+        .reviewIds(reviewIds)
+        .build();
+  }
 
 }
