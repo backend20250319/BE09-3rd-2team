@@ -1,4 +1,4 @@
-package com.gp.nut.usermanagement.command.service.repository;
+package com.gp.nut.usermanagement.command.repository;
 
 import com.gp.nut.usermanagement.command.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

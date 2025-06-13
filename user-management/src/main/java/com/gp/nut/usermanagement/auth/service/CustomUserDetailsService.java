@@ -2,7 +2,7 @@ package com.gp.nut.usermanagement.auth.service;
 
 import com.gp.nut.usermanagement.auth.model.CustomUser;
 import com.gp.nut.usermanagement.command.entity.User;
-import com.gp.nut.usermanagement.command.service.repository.UserRepository;
+import com.gp.nut.usermanagement.command.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
