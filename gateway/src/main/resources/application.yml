@@ -11,13 +11,13 @@ spring:
           predicates:
             - Path=/goodplace/user-management/**
           filters:
-            - RewritePath="/goodplace/user-management/(?<segment>.*), /$\{segment}"
+            - RewritePath=/goodplace/user-management/(?<segment>.*), /${segment}
         - id: location-service
           uri: lb://LOCATION-SERVICE
           predicates:
-            - Path=/goodplace/location/**
+            - Path=/goodplace/location-service/**
           filters:
-            - RewritePath=/goodplace/location/(?<segment>.*), /$\{segment}
+            - RewritePath=/goodplace/location-service/(?<segment>.*), /${segment}
         - id: schedule-service
           uri: lb://SCHEDULE-SERVICE
           predicates:

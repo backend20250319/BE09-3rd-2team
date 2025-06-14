@@ -17,12 +17,28 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
     private final GatewayJwtTokenProvider jwtTokenProvider;
 
-    /*
-    * Reactive Gateway에서는 WebFlux 기술이 사용된다.
-    * 비동기/논블로킹 특징으로 대규모 어플리케이션에서 성능적인 부분이 좋다.
-    * */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+        // 현재 요청 경로 확인
+        String path = exchange.getRequest().getURI().getPath();
+
+        // 디버깅용 로그 추가
+        System.out.println("Gateway Filter - Request Path: " + path);
+        System.out.println("Gateway Filter - Full URI: " + exchange.getRequest().getURI());
+
+        // permitAll 경로는 JWT 검증 건너뛰기
+        if (isPermitAllPath(path)) {
+            System.out.println("Gateway Filter - PermitAll path detected, skipping JWT validation");
+            // 인증 없는 요청으로 그냥 통과
+            ServerHttpRequest mutateRequest = exchange.getRequest().mutate()
+                    .header("X-User-Id", "0")
+                    .header("X-User-Role", "GUEST")
+                    .build();
+            ServerWebExchange mutatedExchange = exchange.mutate().request(mutateRequest).build();
+            return chain.filter(mutatedExchange);
+        }
+
         // 헤더에서 'Authorization' 값을 읽어온다.
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
@@ -63,9 +79,14 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         return chain.filter(mutatedExchange);
     }
 
-    /* GlobalFilter(전역필터)의 우선순위를 지정한다.
-    * 숫자가 적을수록 높은 우선순위를 가진다.
-    * */
+    /**
+     * 인증이 필요하지 않은 경로인지 확인
+     */
+    private boolean isPermitAllPath(String path) {
+        return path.equals("/goodplace/user-management/auth/login") ||
+                path.equals("/goodplace/user-management/user/register");
+    }
+
     @Override
     public int getOrder() {
         return -1;

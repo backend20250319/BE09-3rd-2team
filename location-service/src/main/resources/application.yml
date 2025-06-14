@@ -27,6 +27,11 @@ spring:
       hibernate:
         format_sql: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
 # JWT 설정은 Location Service에서 사용 안할 수도...
 # jwt:
 #   secret:

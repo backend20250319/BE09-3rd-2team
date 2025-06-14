@@ -22,9 +22,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<TokenResponse>> login(@RequestBody LoginRequest request) {
-        TokenResponse token = authService.login(request); // AuthService.login(request)에서 사용자 인증 후 JWT 생성
-        return ResponseEntity.ok(ApiResponse.success(token)); // ApiResponse.success(token)을 통해 응답을 표준화
-        // ResponseEntity.op(...)를 사용해 HTTP상태코드와 함꼐 응답 반환
+        System.out.println("AuthController.login() called with username: " + request.getUsername());
+        try {
+            TokenResponse token = authService.login(request);
+            System.out.println("Login successful, token generated");
+            return ResponseEntity.ok(ApiResponse.success(token));
+        } catch (Exception e) {
+            System.out.println("Login failed with error: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
 }

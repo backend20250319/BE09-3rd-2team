@@ -42,7 +42,8 @@ public class SecurityConfig {
                                 .accessDeniedHandler(restAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(HttpMethod.POST, "/user/register", "/auth/login").permitAll()
+                        auth.requestMatchers(HttpMethod.POST, "/user/register", "/auth/login"
+                                        , "/goodplace/user-management/user/register", "/goodplace/user-management/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/user/*/role").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )
