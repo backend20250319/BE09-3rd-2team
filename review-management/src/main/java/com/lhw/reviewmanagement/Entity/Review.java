@@ -1,6 +1,6 @@
 package com.lhw.reviewmanagement.Entity;
 
-import jakarta.annotation.Resource;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
