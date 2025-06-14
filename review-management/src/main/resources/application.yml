@@ -10,7 +10,7 @@ spring:
     gateway:
       routes:
         - id: review-service
-          uri: lb://REVIEW-SERVICE
+          uri: lb://review-service
           predicates:
             - Path=/goodplace/review-service/**
 
