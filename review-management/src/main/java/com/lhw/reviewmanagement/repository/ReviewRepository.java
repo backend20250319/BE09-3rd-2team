@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 @RequestMapping("/reviews")
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    List<Review> findByTargetId(Long targetId);
+    List<Review> findByReviewId(Long reviewId);
 
 }
