@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8005
 spring:
   jpa:
     hibernate:
@@ -10,7 +10,7 @@ spring:
     gateway:
       routes:
         - id: review-service
-          uri: lb://review-service
+          uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/goodplace/review-service/**
 
