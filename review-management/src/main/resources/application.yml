@@ -5,7 +5,7 @@ spring:
     hibernate:
       ddl-auto: update
   application:
-    name: gateway-service
+    name: REVIEW-SERVICE
   cloud:
     gateway:
       routes:
