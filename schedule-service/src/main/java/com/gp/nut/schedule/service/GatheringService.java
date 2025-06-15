@@ -6,6 +6,7 @@ import com.gp.nut.schedule.dto.UpdateConfirmedLocationDto;
 import com.gp.nut.schedule.dto.UpdateDateRequestDto;
 import com.gp.nut.schedule.entity.Gathering;
 import com.gp.nut.schedule.repository.GatheringRepository;
+import com.gp.nut.schedule.security.SecurityUtil;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
@@ -64,18 +65,20 @@ public class GatheringService {
   // Gathering 삭제
   @Transactional
   public void deleteGathering(Long id) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    String currentUserId = auth.getName();
-    String role = auth.getAuthorities().iterator().next().getAuthority();
+    String currentUserId = SecurityUtil.getCurrentUserId();
 
     Gathering gathering = gatheringRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("회식을 찾을 수 없습니다."));
 
-    boolean isOwner = gathering.getBossId().equals(currentUserId);
-//    boolean isAdmin = role.equals("ADMIN");
+    boolean isOwner = gathering.getBossId().equals(Long.valueOf(currentUserId));
+
+    /*boolean isAdmin = role.equals("ADMIN");
     boolean isAdmin = true;
 
     if (!isOwner && !isAdmin) { // 회식을 만든 사장이 아니거나 관리자가 아니면 삭제할 수 없다.
+      throw new AccessDeniedException("삭제 권한이 없습니다.");
+    }*/
+    if(!isOwner) {
       throw new AccessDeniedException("삭제 권한이 없습니다.");
     }
 
