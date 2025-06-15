@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,17 +30,20 @@ public class GatheringController {
   // Gathering 등록(보스, 날짜, 참여사원, 회식장소 후보들)
   @PostMapping("/gathering")
   // 입력데이터의 유효성 검사는 컨트롤러에서 한다. (@Valid)
-  public GatheringResponseDto createGathering(@RequestBody @Valid GatheringRequestDto requestDto) {
-    return gatheringService.createGathering(requestDto);
+  public ResponseEntity<GatheringResponseDto> createGathering(@RequestBody @Valid GatheringRequestDto requestDto) {
+    GatheringResponseDto response = gatheringService.createGathering(requestDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   // Gathering 날짜 변경
-  @PutMapping("/gathering/date")
-  public GatheringResponseDto gatheringDate(@RequestBody UpdateDateRequestDto requestDto) {
-    return gatheringService.updateGatheringDate(requestDto);
+  @PatchMapping("/gathering/date")
+  public ResponseEntity<GatheringResponseDto> gatheringDate(@RequestBody @Valid UpdateDateRequestDto requestDto) {
+    GatheringResponseDto response = gatheringService.updateGatheringDate(requestDto);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   // Gathering에 확정된 회식정보 저장
+
 
   // Gathering 삭제
 }

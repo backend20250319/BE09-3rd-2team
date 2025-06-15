@@ -1,6 +1,7 @@
 package com.gp.nut.schedule.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +19,9 @@ import lombok.ToString;
 @ToString
 @Builder
 public class UpdateDateRequestDto {
-  @NotEmpty // @NotEmpty 어노테이션은 null과 빈 값 둘 다 검사한다.
+  @NotNull // @NotEmpty 는 주로 String, Collection, Map, 배열에 사용되는 어노테이션이다.
   Long id;
 
-  @NotEmpty
+  @NotNull
   LocalDate date;
 }

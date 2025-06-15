@@ -2,11 +2,12 @@ package com.gp.nut.schedule.service;
 
 import com.gp.nut.schedule.dto.GatheringRequestDto;
 import com.gp.nut.schedule.dto.GatheringResponseDto;
+import com.gp.nut.schedule.dto.UpdateConfirmedLocationDto;
 import com.gp.nut.schedule.dto.UpdateDateRequestDto;
 import com.gp.nut.schedule.entity.Gathering;
 import com.gp.nut.schedule.repository.GatheringRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,16 +33,17 @@ public class GatheringService {
   @Transactional
   public GatheringResponseDto updateGatheringDate(UpdateDateRequestDto requestDto) {
     Gathering retrieveGathering = gatheringRepository.findById(requestDto.getId()).orElseThrow(
-        () -> new IllegalArgumentException("해당 Gathering을 찾을 수 없습니다. ID: " + requestDto.getId()));
+        // EntityNotFoundException: 존재하지 않는 자원 처리
+        // IllegalArgumentException(잘못된 인자, 존재하지 않는 자원 요청) 보다 더 직관적
+        () -> new EntityNotFoundException(
+            "해당 회식은 존재하지 않습니다. ID: " + requestDto.getId()));
     retrieveGathering.updateDate(requestDto.getDate()); // 찾은 회식의 날짜 변경
 
     Gathering updatedGathering = gatheringRepository.save(retrieveGathering); // db 반영
     return updatedGathering.toResponseDto();
   }
 
-  // Gathering에 확정된 회식정보 저장
 
-  // Gathering 삭제
 
 
 }
