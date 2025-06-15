@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequestMapping("/reviews")
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByReviewId(Long reviewId);
 
+    Optional<Review> findByScheduleId(Long scheduleId);
 }
