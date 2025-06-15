@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -18,7 +20,14 @@ public class ReviewService {
 
 
     public ReviewResponseDTO saveReview(ReviewDTO reviewDTO) {
+        Optional<Review> existing = reviewRepository.findByScheduleId(reviewDTO.getScheduleId());
+        if (existing.isPresent()) {
+            throw new IllegalStateException("이미 이 스케줄에 대한 리뷰가 존재합니다.");
+        }
+
         Review review = Review.builder()
+                .scheduleId(reviewDTO.getScheduleId())
+                .userId(reviewDTO.getUserId())
                 .name(reviewDTO.getUsername())
                 .comment(reviewDTO.getComment())
                 .build();
