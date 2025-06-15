@@ -17,7 +17,8 @@ public class GlobalExceptionHandler {
 
   // DTO 유효성 검사 실패 시 처리
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+  public ResponseEntity<Map<String, String>> handleValidationExceptions(
+      MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
 
     for (FieldError error : ex.getBindingResult().getFieldErrors()) {
@@ -29,7 +30,8 @@ public class GlobalExceptionHandler {
 
   // EntityNotFoundException 처리
   @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException ex) {
+  public ResponseEntity<Map<String, String>> handleEntityNotFoundException(
+      EntityNotFoundException ex) {
     Map<String, String> error = new HashMap<>();
     error.put("message", ex.getMessage());
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);  // 404 리턴
@@ -44,7 +46,7 @@ public class GlobalExceptionHandler {
   }
 
 
-  // 기타 모든 예외 처리 (예시)
+  // 기타 모든 예외 처리
   @ExceptionHandler(Exception.class)
   public ResponseEntity<String> handleAllExceptions(Exception ex) {
     ex.printStackTrace();  // 로그 출력 (필요 시)
