@@ -1,6 +1,11 @@
 server:
   port: 0
 
+jwt:
+  secret: LH9QZL8upsPBfuDY+Dkb1kT9DZIIUSuA2u4O6Lfi3mkEfeWtETpVTcR/8SMZdJWn/xNTuCQBE6rBvDXgnVmscQ==
+  expiration: 1800000
+  refresh-expiration: 604800000ed
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -12,10 +17,10 @@ eureka:
 
 spring:
   application:
-    name: location-service  # ⭐ 이 부분만 변경
+    name: location-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.coffit.xyz:3322/gpdb  # 팀 공통 DB
+    url: jdbc:mysql://mysql.coffit.xyz:3322/gpdb
     username: goodplace
     password: goodplace
 
@@ -32,8 +37,8 @@ management:
     web:
       exposure:
         include: mappings
-# JWT 설정은 Location Service에서 사용 안할 수도...
-# jwt:
-#   secret:
-#   expiration: 1800000
-#   refresh-expiration: 604800000ed: false
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    root: INFO

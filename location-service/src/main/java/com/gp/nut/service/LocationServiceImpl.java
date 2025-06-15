@@ -17,10 +17,6 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
 
-//    public LocationServiceImpl(LocationRepository locationRepository) {
-//        this.locationRepository = locationRepository;
-//    }
-
     @Override
     public LocationResponseDTO createLocation(LocationCreateRequestDTO request) {
 
