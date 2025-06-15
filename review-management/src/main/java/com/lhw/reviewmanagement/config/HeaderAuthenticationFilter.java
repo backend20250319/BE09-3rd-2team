@@ -29,5 +29,7 @@ public class HeaderAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
+        log.info("X-User-Id: {}", userId);
+        log.info("X-User-Role: {}", role);
     }
 }
