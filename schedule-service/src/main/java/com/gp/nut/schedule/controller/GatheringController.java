@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "예제 API", description = "Swagger 테스트용 API") // 스웨거용
 @RestController // springweb 의존성 추가해야함
-@RequestMapping("/goodplace/schedule")
 @RequiredArgsConstructor
 public class GatheringController {
   private final GatheringService gatheringService;
