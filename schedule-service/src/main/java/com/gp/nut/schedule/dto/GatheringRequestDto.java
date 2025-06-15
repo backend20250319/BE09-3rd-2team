@@ -21,6 +21,8 @@ import lombok.ToString;
 public class GatheringRequestDto {
   private Long id;
 
+  private String gatheringName;
+
   @NotNull(message = "회식을 주최하는 사장 ID는  필수입니다.")
   private Long bossId;
 
@@ -38,6 +40,7 @@ public class GatheringRequestDto {
 
   public Gathering toGathering() {
     return Gathering.builder()
+        .gatheringName(gatheringName)
         .bossId(bossId)
         .date(Date)
         .confirmedLocationId(confirmedLocationId)

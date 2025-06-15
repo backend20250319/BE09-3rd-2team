@@ -1,6 +1,5 @@
 package com.gp.nut.schedule.dto;
 
-
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,10 +14,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class UpdateConfirmedLocationDto {
+public class UpdateReviewDto {
+
   @NotNull
   Long id;
 
   @NotNull
-  Long confirmedLocationId;
+  Long reviewId;
 }

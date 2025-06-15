@@ -31,6 +31,8 @@ public class Gathering {
   @Id
   private Long id; // pk
 
+  private String gatheringName; // 회식명
+
   @Column(nullable = false)
   private Long bossId; // 회식 만든 사장의 id
 
@@ -60,9 +62,15 @@ public class Gathering {
     this.confirmedLocationId = confirmedLocationId;
   }
 
+  // 리뷰 추가 메서드
+  public void addReviewId(Long reviewId) {
+    this.reviewIds.add(reviewId);
+  }
+
   // Gathering을 Request로 변환
   public GatheringRequestDto toRequestDto() {
     return GatheringRequestDto.builder()
+        .gatheringName(gatheringName)
         .bossId(bossId)
         .Date(date)
         .confirmedLocationId(confirmedLocationId)
@@ -76,6 +84,7 @@ public class Gathering {
   public GatheringResponseDto toResponseDto() {
     return GatheringResponseDto.builder()
         .id(id)
+        .gatheringName(gatheringName)
         .bossId(bossId)
         .Date(date)
         .confirmedLocationId(confirmedLocationId)
