@@ -1,13 +1,13 @@
-package com.gp.gateway;
+package com.gp.nut.schedule;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Chap03GatewayLectureSourceApplicationTests {
+class ScheduleServiceApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+  @Test
+  void contextLoads() {
+  }
 
 }

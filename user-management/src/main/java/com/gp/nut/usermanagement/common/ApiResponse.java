@@ -1,4 +1,4 @@
-package com.gp.nut.common;
+package com.gp.nut.usermanagement.common;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class ApiResponse<T> {
                 .build();
     }
 
-    public static<T> ApiResponse<T> failure(String errorCode, String message) {
+    public static <T> ApiResponse<T> fail(String message, String errorCode) {
         return ApiResponse.<T>builder()
                 .success(false)
                 .errorCode(errorCode)
@@ -31,4 +31,5 @@ public class ApiResponse<T> {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
 }
