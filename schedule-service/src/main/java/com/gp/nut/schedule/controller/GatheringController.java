@@ -4,7 +4,7 @@ import com.gp.nut.schedule.dto.GatheringRequestDto;
 import com.gp.nut.schedule.dto.GatheringResponseDto;
 import com.gp.nut.schedule.dto.UpdateConfirmedLocationDto;
 import com.gp.nut.schedule.dto.UpdateDateRequestDto;
-import com.gp.nut.schedule.entity.Gathering;
+import com.gp.nut.schedule.dto.UpdateReviewDto;
 import com.gp.nut.schedule.service.GatheringService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -12,11 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.security.access.AccessDeniedException;
 
 /* 컨트롤러는 외부 요청 수신, 응답 반환한다.
  *  따라서 dto만 갖고있어야한다. */
@@ -52,7 +47,7 @@ public class GatheringController {
   }
 
   // Gathering 날짜 변경
-  @PatchMapping("/date")
+  @PatchMapping("/{id}/date")
   public ResponseEntity<GatheringResponseDto> updateDate(
       @RequestBody @Valid UpdateDateRequestDto requestDto) {
     // 본인이 만든 회식인지 체크 (구현 필요)
@@ -61,10 +56,17 @@ public class GatheringController {
   }
 
   // Gathering에 확정된 회식정보 저장
-  @PatchMapping("/confirm")
+  @PatchMapping("/{id}/confirm")
   public ResponseEntity<GatheringResponseDto> updateConfirmedLocation(@RequestBody @Valid
   UpdateConfirmedLocationDto requestDto) {
     GatheringResponseDto response = gatheringService.updateConfirmedLocation(requestDto);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  // 회식 리뷰 남기기
+  @PatchMapping("{id}/review")
+  public ResponseEntity<GatheringResponseDto> updateReview(@RequestBody @Valid UpdateReviewDto requestDto) {
+    GatheringResponseDto response = gatheringService.updateReviewIds(requestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

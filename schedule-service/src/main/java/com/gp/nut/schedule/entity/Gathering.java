@@ -62,6 +62,11 @@ public class Gathering {
     this.confirmedLocationId = confirmedLocationId;
   }
 
+  // 리뷰 추가 메서드
+  public void addReviewId(Long reviewId) {
+    this.reviewIds.add(reviewId);
+  }
+
   // Gathering을 Request로 변환
   public GatheringRequestDto toRequestDto() {
     return GatheringRequestDto.builder()

@@ -4,10 +4,12 @@ import com.gp.nut.schedule.dto.GatheringRequestDto;
 import com.gp.nut.schedule.dto.GatheringResponseDto;
 import com.gp.nut.schedule.dto.UpdateConfirmedLocationDto;
 import com.gp.nut.schedule.dto.UpdateDateRequestDto;
+import com.gp.nut.schedule.dto.UpdateReviewDto;
 import com.gp.nut.schedule.entity.Gathering;
 import com.gp.nut.schedule.repository.GatheringRepository;
 import com.gp.nut.schedule.security.SecurityUtil;
 import jakarta.persistence.EntityNotFoundException;
+import java.security.Security;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +30,27 @@ public class GatheringService {
 
   private final GatheringRepository gatheringRepository;
 
-  // 해당 유저가 권한이 있는지 확인하는 메서드 (본인과 ADMIN일시에만 true)
-  private boolean hasPermission(Long id) {
+  // 타겟 유저가 권한이 있는지 확인하는 메서드 (boss 본인과 ADMIN일시에만 true)
+  private boolean hasPermission(Long targetUserId) {
     String currentUserId = SecurityUtil.getCurrentUserId();
-    boolean isOwner = id.equals(Long.valueOf(currentUserId));
+    boolean isOwner = targetUserId.equals(Long.valueOf(currentUserId));
     boolean isAdmin = SecurityUtil.getCurrentUserRoles().stream().anyMatch("ADMIN"::equals);
     return isOwner || isAdmin;
+  }
+
+  // 참여자 목록과 사장id를 받아 current유저가 포함되어 있는지 확인
+  private boolean hasReviewPermission(List<Long> participantIds, Long bossId) {
+    if (SecurityUtil.getCurrentUserRoles().stream().anyMatch("ADMIN"::equals)) {
+      return true; // 관리자면 리뷰 작성 가능
+    }
+
+    log.info(participantIds.toString());
+    log.info(bossId.toString());
+
+    Long currentUserId = Long.valueOf(SecurityUtil.getCurrentUserId());
+    boolean isParticipant = participantIds.contains(currentUserId); // 참여자이거나
+    boolean isBoss = bossId.equals(currentUserId); // 주최 사장이면
+    return isParticipant || isBoss; // 회식 참여자이거나, 주최 보스면 리뷰 작성 가능
   }
 
   // Gathering 등록(보스, 날짜, 참여사원, 회식장소 후보들)
@@ -83,6 +100,25 @@ public class GatheringService {
     Gathering updatedGathering = gatheringRepository.save(retrieveGathering);
     return updatedGathering.toResponseDto();
   }
+
+  // Gathering에 리뷰
+  @Transactional
+  public GatheringResponseDto updateReviewIds(UpdateReviewDto requestDto) {
+    Gathering retrieveGathering = gatheringRepository.findById(requestDto.getId()).orElseThrow(
+        () -> new EntityNotFoundException("해당 회식을 찾을 수 없습니다: ID: " + requestDto.getId())
+    );
+    List<Long> participantIds = retrieveGathering.getParticipantIds();
+    Long bossId = retrieveGathering.getBossId();
+
+    if (!hasReviewPermission(participantIds, retrieveGathering.getBossId())) { // 참여자 목록과 사장id를 받아 current유저가 포함되어 있는지 확인
+      throw new AccessDeniedException("회식 리뷰 작성 권한이 없습니다. (회식 참여자(사원, 사장)와 관리자만 가능합니다.)");
+    }
+
+    retrieveGathering.addReviewId(requestDto.getReviewId());
+    Gathering updatedGathering = gatheringRepository.save(retrieveGathering);
+    return updatedGathering.toResponseDto();
+  }
+
 
   // Gathering 삭제
   @Transactional
