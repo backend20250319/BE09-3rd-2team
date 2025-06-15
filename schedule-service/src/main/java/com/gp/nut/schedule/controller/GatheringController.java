@@ -59,7 +59,17 @@ public class GatheringController {
   }
 
   // Gathering에 확정된 회식정보 저장
-
+  @PatchMapping("/confirm")
+  public ResponseEntity<GatheringResponseDto> updateConfirmedLocation(@RequestBody @Valid
+      UpdateConfirmedLocationDto requestDto) {
+    GatheringResponseDto response = gatheringService.updateConfirmedLocation(requestDto);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
 
   // Gathering 삭제
+  @DeleteMapping("/{id}")
+  public ResponseEntity<GatheringResponseDto> deleteGathering(@PathVariable Long id) {
+    gatheringService.deleteGathering(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // 삭제는 NO_CONTENT 반환
+  }
 }

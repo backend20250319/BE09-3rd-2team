@@ -1,6 +1,7 @@
 package com.gp.nut.schedule.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,9 +16,9 @@ import lombok.ToString;
 @ToString
 @Builder
 public class UpdateConfirmedLocationDto {
-  @NotEmpty
+  @NotNull
   Long id;
 
-  @NotEmpty
+  @NotNull
   Long confirmedLocationId;
 }

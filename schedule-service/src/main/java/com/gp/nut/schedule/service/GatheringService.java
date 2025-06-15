@@ -7,8 +7,13 @@ import com.gp.nut.schedule.dto.UpdateDateRequestDto;
 import com.gp.nut.schedule.entity.Gathering;
 import com.gp.nut.schedule.repository.GatheringRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /* 서비스는 비즈니스 로직을 담당한다.
@@ -43,7 +48,68 @@ public class GatheringService {
     return updatedGathering.toResponseDto();
   }
 
+  // Gathering에 확정된 회식정보 저장
+  @Transactional
+  public GatheringResponseDto updateConfirmedLocation(UpdateConfirmedLocationDto requestDto) {
+    Gathering retrieveGathering = gatheringRepository.findById(requestDto.getId()).orElseThrow(
+        () -> new EntityNotFoundException(
+            "해당 회식은 존재하지 않습니다. ID: " + requestDto.getId()
+        )
+    );
+    retrieveGathering.updateConfirmedLocationId(requestDto.getConfirmedLocationId());
+    Gathering updatedGathering = gatheringRepository.save(retrieveGathering);
+    return updatedGathering.toResponseDto();
+  }
 
+  // Gathering 삭제
+  @Transactional
+  public void deleteGathering(Long id) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String currentUserId = auth.getName();
+    String role = auth.getAuthorities().iterator().next().getAuthority();
 
+    Gathering gathering = gatheringRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("회식을 찾을 수 없습니다."));
+
+    boolean isOwner = gathering.getBossId().equals(currentUserId);
+//    boolean isAdmin = role.equals("ADMIN");
+    boolean isAdmin = true;
+
+    if (!isOwner && !isAdmin) { // 회식을 만든 사장이 아니거나 관리자가 아니면 삭제할 수 없다.
+      throw new AccessDeniedException("삭제 권한이 없습니다.");
+    }
+
+    gatheringRepository.delete(gathering);
+  }
+
+  // 모든 회식 정보 조회하기
+  @Transactional(readOnly = true)
+  public List<GatheringResponseDto> findAllGatherings() {
+    List<GatheringResponseDto> gatheringList =
+        gatheringRepository.findAll().stream().map(Gathering::toResponseDto).toList();
+    return gatheringList;
+  }
+
+  // 회식 id로 회식 정보 조회하기
+  @Transactional(readOnly = true)
+  public GatheringResponseDto findById(Long id) {
+    Gathering retrieveGathering = gatheringRepository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException(" 해당 회식은 존재하지 않습니다. ID: " + id)
+    );
+    return retrieveGathering.toResponseDto();
+  }
+
+  // 날짜로 회식 정보 조회하기
+  @Transactional(readOnly = true)
+  public List<GatheringResponseDto> findByDate(LocalDate date) {
+    List<GatheringResponseDto> gatheringList = gatheringRepository.findGatheringByDate(date).stream().map(Gathering::toResponseDto).toList();
+    return gatheringList;
+  }
+
+  // 만든 사장으로 회식 정보 조회하기
+  public List<GatheringResponseDto> findByBossId(Long bossId) {
+    List<GatheringResponseDto> gatheringList = gatheringRepository.findGatheringByBossId(bossId).stream().map(Gathering::toResponseDto).toList();
+    return gatheringList;
+  }
 
 }

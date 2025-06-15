@@ -31,9 +31,10 @@ public class SecurityConfig {
                         .authenticationEntryPoint(restAuthenticationEntryPoint)
                         .accessDeniedHandler(restAccessDeniedHandler)
         )
-        .authorizeHttpRequests(auth ->
-                auth.requestMatchers(HttpMethod.POST, "/gathering").permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/gathering/date").permitAll()
+        .authorizeHttpRequests(auth -> // BOSS, EMPLOYEE, ADMIN
+                auth.requestMatchers(HttpMethod.POST, "/gathering").permitAll() // BOSS, ADMIN
+                    .requestMatchers(HttpMethod.PATCH, "/gathering/date", "/gathering/date").permitAll() // BOSS, ADMIN
+                    .requestMatchers(HttpMethod.DELETE, "/gathering/*").permitAll() // BOSS, ADMIN
                         .anyRequest().authenticated()
         )
         // 기존 JWT 검증 필터 대신, Gateway가 전달한 헤더를 이용하는 필터 추가
