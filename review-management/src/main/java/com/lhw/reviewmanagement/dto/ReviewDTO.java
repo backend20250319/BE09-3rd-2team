@@ -3,16 +3,14 @@ package com.lhw.reviewmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReviewDTO {
-
-    private Long reviewId;
-    private Long  scheduleId;   // schedule 테이블 고유 Id
-    private Long userId ;     // user 테이블 고유 Id
-    private String username ;    // 리뷰 작성자 Id
+    private Long scheduleId;
+    private String userId;
     private String comment;     // 리뷰 내용
-
-
 }
