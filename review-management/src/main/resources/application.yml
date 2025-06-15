@@ -1,18 +1,9 @@
 server:
-  port: 8005
+  port: 8082
+
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
   application:
     name: REVIEW-SERVICE
-  cloud:
-    gateway:
-      routes:
-        - id: review-service
-          uri: lb://REVIEW-SERVICE
-          predicates:
-            - Path=/goodplace/review-service/**
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,3 +11,13 @@ spring:
     username: goodplace
     password: goodplace
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
