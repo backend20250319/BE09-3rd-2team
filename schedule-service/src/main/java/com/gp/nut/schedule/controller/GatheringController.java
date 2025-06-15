@@ -37,15 +37,7 @@ public class GatheringController {
   // Gathering 등록(보스, 날짜, 참여사원, 회식장소 후보들)
   @PostMapping()
   // 입력데이터의 유효성 검사는 컨트롤러에서 한다. (@Valid)
-  public ResponseEntity<GatheringResponseDto> createGathering(@RequestBody @Valid GatheringRequestDto requestDto,
-      Authentication authentication) {
-    String authenticatedUserId = authentication.getName();  // 헤더에서 설정된 userId 가져오기
-    log.info("authenticatedUserId : {}", authenticatedUserId);
-
-    if (Long.valueOf(authenticatedUserId) != requestDto.getBossId()) {
-      throw new AccessDeniedException("본인 아이디로만 등록할 수 있습니다.");
-    }
-
+  public ResponseEntity<GatheringResponseDto> createGathering(@RequestBody @Valid GatheringRequestDto requestDto) {
     GatheringResponseDto response = gatheringService.createGathering(requestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
