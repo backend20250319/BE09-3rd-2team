@@ -8,29 +8,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"schedule_id","user_id"}))
 @Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Review {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    @JoinColumn(name="scheduleId")
-    private Long scheduleId ;
+    @Column(name = "schedule_id", nullable = false)
+    private Long scheduleId;
 
-    @JoinColumn(name="userId")
-    private Long userId ;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
-    @Column(nullable = false)
-    private String name ;
     @Column(nullable = false)
     private String comment;
-
-
 
 
     public void setComment(String comment) {
