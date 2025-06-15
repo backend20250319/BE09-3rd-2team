@@ -8,8 +8,8 @@ import com.gp.nut.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -115,6 +115,9 @@ public class LocationServiceImpl implements LocationService {
                 .toList();
     }
 
+    // SecureRandom을 클래스 레벨에서 한 번만 생성 (성능 최적화)
+    private static final SecureRandom secureRandom = new SecureRandom();
+
     @Override
     public LocationResponseDTO getRandomLocation(Long scheduleId) {
 
@@ -123,9 +126,8 @@ public class LocationServiceImpl implements LocationService {
         if(locations.isEmpty()) {
             throw new RuntimeException("해당 스케줄에 등록된 장소가 없습니다.");
         }
-
-        Random random = new Random();
-        Location randomLocation = locations.get(random.nextInt(locations.size()));
+        // SecureRandom 사용으로 진짜 랜덤 구현
+        Location randomLocation = locations.get(secureRandom.nextInt(locations.size()));
 
         LocationResponseDTO respons= new LocationResponseDTO();
         respons.setId(randomLocation.getId());
