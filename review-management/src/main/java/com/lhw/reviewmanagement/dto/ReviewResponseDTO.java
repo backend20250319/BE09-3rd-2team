@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ReviewResponseDTO{
-    private Long reviewId ;
+    private Long  reviewId ;
     private String comment;
 
     public ReviewResponseDTO(Review review){
