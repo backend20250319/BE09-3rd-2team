@@ -3,6 +3,7 @@ package com.gp.nut.schedule.exception;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,14 @@ public class GlobalExceptionHandler {
     Map<String, String> error = new HashMap<>();
     error.put("message", ex.getMessage());
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);  // 404 리턴
+  }
+
+  // AccessDeniedException 처리
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<Map<String, String>> handleAccessDeniedException(AccessDeniedException ex) {
+    Map<String, String> error = new HashMap<>();
+    error.put("message", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error); // 403 (인증은 되었지만 권한이 없을 때)
   }
 
 
