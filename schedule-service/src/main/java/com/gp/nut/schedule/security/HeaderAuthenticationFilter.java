@@ -20,21 +20,21 @@ public class HeaderAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-        // API Gateway가 전달한 헤더 읽기
+        throws ServletException, IOException {
+
         String userId = request.getHeader("X-User-Id");
         String role = request.getHeader("X-User-Role");
 
-        log.info("userId : {}", userId);
-        log.info("role : {}", role);
-
         if (userId != null && role != null) {
-            // 이미 Gateway에서 검증된 정보로 인증 객체 구성
             PreAuthenticatedAuthenticationToken authentication =
-                    new PreAuthenticatedAuthenticationToken(userId, null,
-                            List.of(new SimpleGrantedAuthority(role)));
+                new PreAuthenticatedAuthenticationToken(userId, null,
+                    List.of(new SimpleGrantedAuthority(role)));
             SecurityContextHolder.getContext().setAuthentication(authentication);
+        } else {
+            throw new org.springframework.security.core.AuthenticationException("Missing authentication headers") {};
         }
+
         filterChain.doFilter(request, response);
     }
+
 }
