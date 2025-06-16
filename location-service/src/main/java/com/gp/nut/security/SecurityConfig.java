@@ -36,6 +36,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/actuator/**").permitAll()  // 헬스체크 허용
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/locations").hasAuthority("USER")  // 장소 생성
                                 .requestMatchers(HttpMethod.PUT, "/locations/**").hasAuthority("USER")  // 장소 수정
                                 .requestMatchers(HttpMethod.DELETE, "/locations/**").hasAuthority("USER")  // 장소 삭제
