@@ -57,4 +57,14 @@ public class UserCommandController {
                 .body(ApiResponse.success(null));
     }
 
+    @PostMapping("/register/admin")
+    public ResponseEntity<ApiResponse<Void>> registerAdmin(@RequestBody UserCreateRequest request) {
+        userCommandService.registerAdmin(request);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ApiResponse.success(null));
+    }
+
+
+
 }
