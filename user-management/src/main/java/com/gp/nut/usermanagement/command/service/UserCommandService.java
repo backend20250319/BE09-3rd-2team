@@ -3,8 +3,8 @@ package com.gp.nut.usermanagement.command.service;
 import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
 import com.gp.nut.usermanagement.command.dto.UserRoleUpdateRequest;
 import com.gp.nut.usermanagement.command.entity.User;
-
-import com.gp.nut.usermanagement.command.service.repository.UserRepository;
+import com.gp.nut.usermanagement.command.entity.UserRole;
+import com.gp.nut.usermanagement.command.repository.UserRepository;
 import com.gp.nut.usermanagement.common.ApiResponse;
 import com.gp.nut.usermanagement.common.Errorcode;
 import com.gp.nut.usermanagement.common.UserException;
@@ -67,4 +67,17 @@ public class UserCommandService {
                 .orElseThrow(() -> new UserException(Errorcode.USER_NOT_FOUND));
         user.updateRole(request.getRole());
     }
+
+    @Transactional
+    public void registerAdmin(UserCreateRequest request) {
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new UserException(Errorcode.DUPLICATE_USERNAME);
+        }
+        User user = modelMapper.map(request, User.class);
+        user.setEncodedPassword(passwordEncoder.encode(request.getPassword()));
+        user.updateRole(UserRole.ADMIN);
+        userRepository.save(user);
+    }
+
+
 }
