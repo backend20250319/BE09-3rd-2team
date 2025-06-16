@@ -91,4 +91,12 @@ public class JwtTokenProvider {
         }
     }
 
+    public String getUsernameFromJWT(String token) {
+        Claims claims = Jwts.parser()   // JWT를 파싱할 준비
+                .verifyWith(secretKey)  // 서명을 검증하기 위해 secretKey 사용
+                .build()                // 빌드하여 분석 도구 생성
+                .parseSignedClaims(token)   // JWT를 해석하여 claims(내용) 추출
+                .getPayload();              // claims의 payload 부분을 가져옴
+        return claims.getSubject(); // subject(주체) 값을 반환 (일반적으로 username을 저장)
+    }
 }

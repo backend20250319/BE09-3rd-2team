@@ -34,4 +34,23 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<TokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) {
+        TokenResponse response = authService.refreshToken(request.getRefreshToken());
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /* 로그아웃 기능 작동 원리
+    토큰은 유효기간이 있어 사라지기 때문에 리프레시 토큰만 가져와서 삭제해주는 것
+    */
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody RefreshTokenRequest request) {
+        authService.logout(request.getRefreshToken());
+        return ResponseEntity.ok(ApiResponse.success(null));
+        // Spring Boot에서 HTTP응답을 생성하는 메서드(HTTP 200 OK 상태코드를 반환)
+        // 응답을 표준화하기 위한 메서드
+    }
+
+
+
 }
