@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * Location Service REST API Controller
+ * JWT 인증 필요 (EMPLOYEE 권한)
+ */
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -17,6 +20,9 @@ public class LocationController {
 
     private final LocationService locationService;
 
+    /**
+     * 서비스 연결 테스트용
+     */
     @GetMapping("/test")
     public String test() {
         return "Hello from Location Service!";
@@ -51,6 +57,9 @@ public class LocationController {
         return ResponseEntity.ok(locations);
     }
 
+    /**
+     * 스케줄별 랜덤 장소 선택 (SecureRandom 사용)
+     */
     @GetMapping("/schedule/{scheduleId}/random")
     public ResponseEntity<LocationResponseDTO> getRandomLocation(@PathVariable Long scheduleId) {
         LocationResponseDTO response = locationService.getRandomLocation(scheduleId);
