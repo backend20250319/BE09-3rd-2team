@@ -4,7 +4,7 @@ import com.gp.nut.usermanagement.command.dto.UserCreateRequest;
 import com.gp.nut.usermanagement.command.dto.UserRoleUpdateRequest;
 import com.gp.nut.usermanagement.command.entity.User;
 import com.gp.nut.usermanagement.command.entity.UserRole;
-import com.gp.nut.usermanagement.command.repository.UserRepository;
+import com.gp.nut.usermanagement.command.service.repository.UserRepository;
 import com.gp.nut.usermanagement.common.ApiResponse;
 import com.gp.nut.usermanagement.common.Errorcode;
 import com.gp.nut.usermanagement.common.UserException;
