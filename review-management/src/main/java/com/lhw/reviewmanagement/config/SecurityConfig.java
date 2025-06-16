@@ -32,7 +32,8 @@ public class SecurityConfig {
                                 .accessDeniedHandler(restAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth ->
-                            auth.requestMatchers(HttpMethod.POST, "/reviews").authenticated()
+                        auth.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/reviews").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/reviews/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/reviews").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/reviews/**").authenticated()
