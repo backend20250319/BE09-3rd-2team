@@ -12,7 +12,7 @@ eureka:
 
 spring:
   application:
-    name: user-management
+    name: USER-MANAGEMENT
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql.coffit.xyz:3322/gpdb
