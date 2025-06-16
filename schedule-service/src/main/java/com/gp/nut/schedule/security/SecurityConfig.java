@@ -32,10 +32,22 @@ public class SecurityConfig {
                         .accessDeniedHandler(restAccessDeniedHandler)
         )
         .authorizeHttpRequests(auth -> // BOSS, EMPLOYEE, ADMIN
-                auth.requestMatchers(HttpMethod.POST, "/gatherings").permitAll() // BOSS, ADMIN
+                auth
+                    // Swagger 경로 예외 처리
+                    .requestMatchers(
+                        "/favicon.ico",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/v3/api-docs/**",
+                        "/v2/api-docs",
+                        "/webjars/**"
+                    ).permitAll()
+                    .requestMatchers(HttpMethod.POST, "/gatherings").permitAll() // BOSS, ADMIN
                     .requestMatchers(HttpMethod.PATCH, "/gatherings/*/date", "/gatherings/*/confirm", "gatherings/*/review").permitAll() // BOSS, ADMIN
                     .requestMatchers(HttpMethod.DELETE, "/gatherings/*").permitAll() // BOSS, ADMIN
                     .requestMatchers(HttpMethod.GET, "/gatherings/*").permitAll() // 전부...
+
                         .anyRequest().authenticated()
         )
         // 기존 JWT 검증 필터 대신, Gateway가 전달한 헤더를 이용하는 필터 추가

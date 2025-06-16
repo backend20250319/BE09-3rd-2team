@@ -6,6 +6,8 @@ import com.gp.nut.schedule.dto.UpdateConfirmedLocationDto;
 import com.gp.nut.schedule.dto.UpdateDateRequestDto;
 import com.gp.nut.schedule.dto.UpdateReviewDto;
 import com.gp.nut.schedule.service.GatheringService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
@@ -27,11 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 /* 컨트롤러는 외부 요청 수신, 응답 반환한다.
  *  따라서 dto만 갖고있어야한다. */
 
-@Tag(name = "예제 API", description = "Swagger 테스트용 API") // 스웨거용
 @Slf4j // 로그 객체 선언
 @RestController // springweb 의존성 추가해야함
 @RequiredArgsConstructor
 @RequestMapping("/gatherings")
+@SecurityRequirement(name = "BearerAuth")
 public class GatheringController {
 
   private final GatheringService gatheringService;
