@@ -1,12 +1,23 @@
 server:
-  port: 8080
+  port: 8082
+
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
+  application:
+    name: REVIEW-SERVICE
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql.coffit.xyz:3322/gpdb
     username: goodplace
     password: goodplace
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

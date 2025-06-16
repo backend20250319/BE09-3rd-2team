@@ -15,21 +15,21 @@ spring:
         - id: location-service
           uri: lb://LOCATION-SERVICE
           predicates:
-            - Path=/goodplace/location-service/**
+            - Path=/goodplace/location/**
           filters:
-            - RewritePath=/goodplace/location-service/(?<segment>.*), /${segment}
+            - RewritePath=/goodplace/location/(?<segment>.*), /${segment}
         - id: schedule-service
           uri: lb://SCHEDULE-SERVICE
           predicates:
             - Path=/goodplace/schedule-service/**
           filters:
-            - RewritePath=/goodplace/schedule-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/goodplace/schedule-service/(?<segment>.*), /${segment}
         - id: review-service
           uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/goodplace/review-service/**
           filters:
-            - RewritePath=/goodplace/review-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/goodplace/review-service/(?<segment>.*), /${segment}
 eureka:
   client:
     register-with-eureka: true

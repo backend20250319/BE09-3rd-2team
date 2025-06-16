@@ -11,6 +11,7 @@ import lombok.Getter;
 public class GatheringResponseDto {
 
   private Long id; // 어떤 회식인지 알기 위해 필요
+  private String gatheringName;
   private Long bossId;
   private LocalDate Date;
   private Long confirmedLocationId;
@@ -21,6 +22,7 @@ public class GatheringResponseDto {
   public Gathering toGathering() {
     return Gathering.builder()
         .id(id)
+        .gatheringName(gatheringName)
         .bossId(bossId)
         .date(Date)
         .confirmedLocationId(confirmedLocationId)
