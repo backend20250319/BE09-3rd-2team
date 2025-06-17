@@ -6,18 +6,30 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: lb://SWCAMP-USER-SERVICE
+        - id: user-management
+          uri: lb://USER-MANAGEMENT
           predicates:
-            - Path=/api/v1/user-service/**
+            - Path=/goodplace/user-management/**
           filters:
-            - RewritePath=/api/v1/user-service/(?<segment>.*), /$\{segment}
-        - id: order-service
-          uri: lb://SWCAMP-ORDER-SERVICE
+            - RewritePath=/goodplace/user-management/(?<segment>.*), /${segment}
+        - id: location-service
+          uri: lb://LOCATION-SERVICE
           predicates:
-            - Path=/api/v1/order-service/**
+            - Path=/goodplace/location-service/**
           filters:
-            - RewritePath=/api/v1/order-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/goodplace/location-service/(?<segment>.*), /${segment}
+        - id: schedule-service
+          uri: lb://SCHEDULE-SERVICE
+          predicates:
+            - Path=/goodplace/schedule-service/**
+          filters:
+            - RewritePath=/goodplace/schedule-service/(?<segment>.*), /${segment}
+        - id: review-service
+          uri: lb://REVIEW-SERVICE
+          predicates:
+            - Path=/goodplace/review-service/**
+          filters:
+            - RewritePath=/goodplace/review-service/(?<segment>.*), /${segment}
 eureka:
   client:
     register-with-eureka: true
