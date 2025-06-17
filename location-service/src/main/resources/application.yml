@@ -32,13 +32,8 @@ spring:
       hibernate:
         format_sql: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: mappings
-
 logging:
   level:
-    org.springframework.web: DEBUG
     root: INFO
+    org.springframework.web: info
+    org.hibernate.sql: debug
