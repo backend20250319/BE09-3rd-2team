@@ -23,9 +23,9 @@ public class ReviewService {
 
 
     public ReviewResponseDTO saveReview(ReviewDTO reviewDTO,String userId) {
-        Optional<Review> existing = reviewRepository.findByScheduleIdAndUserId(reviewDTO.getScheduleId(), reviewDTO.getUserId());
-        if (existing.isPresent()) {
-            throw new IllegalStateException("이미 이 스케줄에 대한 리뷰가 존재합니다.");
+        Optional<Review> existing = reviewRepository.findByScheduleIdAndUserId(reviewDTO.getScheduleId(), userId);
+        if (reviewRepository.existsByScheduleIdAndUserId(reviewDTO.getScheduleId(), userId)) {
+            throw new IllegalArgumentException("이미 작성한 리뷰입니다.");
         }
 
         Review review = Review.builder()
@@ -37,11 +37,12 @@ public class ReviewService {
         return new ReviewResponseDTO(saved);
     }
     @Transactional
-    public ReviewResponseDTO updateReview(ReviewDTO reviewDTO, Long id) {
-        Review review = reviewRepository.findById(id)
+    public ReviewResponseDTO updateReview(Long reviewId, ReviewDTO reviewDTO) {
+        Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException("해당 리뷰가 존재하지 않습니다."));
+
         review.setComment(reviewDTO.getComment());
-        return new ReviewResponseDTO(reviewRepository.save(review));
+        return new ReviewResponseDTO(review);
     }
 
     @Transactional
@@ -54,6 +55,11 @@ public class ReviewService {
 
     public List<ReviewResponseDTO> getReviewByUserId(String userId) {
         List<Review> reviewList = reviewRepository.findByUserId(userId);
+
+        if (reviewList.isEmpty()) {
+            throw new NoSuchElementException("해당 리뷰가 존재하지 않습니다.");
+        }
+
         return reviewList.stream()
                 .map(ReviewResponseDTO::new)
                 .collect(Collectors.toList());

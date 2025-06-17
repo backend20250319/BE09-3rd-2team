@@ -24,8 +24,7 @@ ext {
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2' // swagger 의존성
-
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
     compileOnly 'org.projectlombok:lombok' // 롬복을 중간에 추가하면
     annotationProcessor 'org.projectlombok:lombok' // 이 두개 어노테이션을 붙여줘야한다. (알아서 추가 안해줌)
 
