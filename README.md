@@ -48,7 +48,6 @@ RESTful API를 통해 **일관된 HTTP 기반으로한 인터페이스 사용을
 
 
 | 서버 구성 | Spring Boot, Spring Security, JPA, Eureka, Gateway |
-| --- | --- |
 | 데이터베이스 | MySQL |
 | 개발 도구 | IntelliJ IDEA, Postman |
 | API 문서화 도구 | springdoc-openapi 2.8.9(Swagger) |
