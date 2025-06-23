@@ -478,11 +478,11 @@ RESTful API를 통해 **일관된 HTTP 기반으로한 인터페이스 사용을
 - `null` 필드는 아직 입력되지 않은 값일 수 있습니다.
 </details>
 
-## 세부 기능 설명(인터페이스 설계서)
+## 세부 기능 설명
 
+### 인터페이스 설계서 : https://docs.google.com/spreadsheets/d/1gH0ItXDzfwnVsz0WWKF3XGTTH1kJHopoUA3AwJfX3WM/edit?gid=0#gid=0
 
-
-https://docs.google.com/spreadsheets/d/1gH0ItXDzfwnVsz0WWKF3XGTTH1kJHopoUA3AwJfX3WM/edit?gid=0#gid=0
+### 테스트 케이스, 결과서 : https://docs.google.com/spreadsheets/d/16TmB5eonmZTy6BG1TJK8knMEobdqOFFsSI2C9PA1oCw/edit?gid=0#gid=0
 
 
 
